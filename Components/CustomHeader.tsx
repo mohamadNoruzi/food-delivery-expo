@@ -26,7 +26,7 @@ const SearchBar = () => (
 
 
 const CustomHeader = () => {
-const bottomSheetRef = useRef<BottomSheetModal>(null);
+  const bottomSheetRef = useRef<BottomSheetModal>(null);
   const openModal = () => {
     bottomSheetRef.current?.present();
   };
