@@ -1,29 +1,43 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput } from 'react-native'
-import React, { useRef } from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { Ionicons } from '@expo/vector-icons'
-import { Link } from 'expo-router'
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
+import React, { useRef } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Ionicons } from "@expo/vector-icons";
+import { Link } from "expo-router";
 
-import Colors from '@/constants/Colors'
-import BottomSheet from './BottomSheet'
-import { BottomSheetModal } from '@gorhom/bottom-sheet'
+import Colors from "@/constants/Colors";
+import BottomSheet from "./BottomSheet";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
 
 const SearchBar = () => (
   <View style={styles.searchContainer}>
     <View style={styles.searchSection}>
       <View style={styles.searchField}>
-        <Ionicons style={styles.searchIcon} name='ios-search' size={20} color={Colors.medium} />
-        <TextInput style={styles.input} placeholder='Restaurants, groceries, dishes'/>
+        <Ionicons
+          style={styles.searchIcon}
+          name="ios-search"
+          size={20}
+          color={Colors.medium}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Restaurants, groceries, dishes"
+        />
       </View>
-      <Link href={'/(modal)/filter'} asChild>
-        <TouchableOpacity style={styles.optionButton} >
+      <Link href={"/(modal)/filter"} asChild>
+        <TouchableOpacity style={styles.optionButton}>
           <Ionicons name="options-outline" size={20} color={Colors.primary} />
         </TouchableOpacity>
       </Link>
     </View>
   </View>
-)
-
+);
 
 const CustomHeader = () => {
   const bottomSheetRef = useRef<BottomSheetModal>(null);
@@ -35,7 +49,10 @@ const CustomHeader = () => {
       <BottomSheet ref={bottomSheetRef} />
       <View style={styles.container}>
         <TouchableOpacity onPress={openModal}>
-          <Image style={styles.bike} source={require('@/assets/images/bike.png')} />
+          <Image
+            style={styles.bike}
+            source={require("@/assets/images/bike.png")}
+          />
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.titleContainer} onPress={openModal}>
@@ -47,31 +64,31 @@ const CustomHeader = () => {
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.profileButton}>
-          <Ionicons name='person-outline' size={20} color={Colors.primary} />
+          <Ionicons name="person-outline" size={20} color={Colors.primary} />
         </TouchableOpacity>
       </View>
       <SearchBar />
     </SafeAreaView>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   SafeArea: {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: "#fff",
   },
   container: {
     height: 60,
-    backgroundColor: '#fff',
-    flexDirection: 'row',
+    backgroundColor: "#fff",
+    flexDirection: "row",
     gap: 20,
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingHorizontal: 20,
   },
   bike: {
     width: 30,
-    height: 30
+    height: 30,
   },
   titleContainer: {
     flex: 1,
@@ -82,7 +99,8 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   locationName: {
-    flexDirection: 'row', alignItems: 'center'
+    flexDirection: "row",
+    alignItems: "center",
   },
   title: {
     fontSize: 14,
@@ -90,25 +108,25 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   searchContainer: {
     height: 60,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   searchSection: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 10,
     flex: 1,
     paddingHorizontal: 20,
-    alignItems: 'center',
+    alignItems: "center",
   },
   searchField: {
     flex: 1,
     backgroundColor: Colors.lightGrey,
     borderRadius: 8,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   searchIcon: {
     paddingLeft: 4,
@@ -121,6 +139,6 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 50,
   },
-})
+});
 
-export default CustomHeader
+export default CustomHeader;
