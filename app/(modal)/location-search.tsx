@@ -4,19 +4,33 @@ import MapView from "react-native-maps";
 import Colors from "@/constants/Colors";
 import { useNavigation } from "expo-router";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import TextToLocation from "@/Components/TextToLocation";
 
 const LocationSearch = () => {
   const navigation = useNavigation();
   const [location, setLocation] = useState({
-    latitude: 51.5078788,
-    longitude: -0.0877321,
+    latitude: 35.68877029418945,
+    longitude: 51.41503143310547,
     latitudeDelta: 0.02,
     longitudeDelta: 0.02,
   });
 
+  const updateLocation = (
+    newLocation: React.SetStateAction<{
+      latitude: number;
+      longitude: number;
+      latitudeDelta: number;
+      longitudeDelta: number;
+    }>
+  ) => {
+    setLocation(newLocation);
+  };
+
+  console.log("newloc", location);
   return (
     <View style={{ flex: 1 }}>
-      <GooglePlacesAutocomplete
+      <TextToLocation updateLocation={updateLocation} location={location} />
+      {/* <GooglePlacesAutocomplete
         placeholder="Search"
         styles={{
           container: {
@@ -37,7 +51,7 @@ const LocationSearch = () => {
           key: process.env.EXPO_PUBLIC_GOOGLE_API_KEY,
           language: "en",
         }}
-      />
+      /> */}
       <MapView showsUserLocation={true} style={styles.map} region={location} />
       <View style={styles.absoluteBox}>
         <TouchableOpacity
