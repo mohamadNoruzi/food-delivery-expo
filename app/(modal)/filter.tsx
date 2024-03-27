@@ -145,7 +145,10 @@ const Filter = () => {
       <View style={styles.footer}>
         <View style={styles.btnContainer}>
           <Animated.View style={[animatedStyles, styles.outlineButton]}>
-            <TouchableOpacity onPress={() => handleClearAll()}>
+            <TouchableOpacity
+              style={styles.tochableClear}
+              onPress={() => handleClearAll()}
+            >
               <Animated.Text style={[animatedText, styles.outlineButtonText]}>
                 Clear all
               </Animated.Text>
@@ -246,6 +249,11 @@ const styles = StyleSheet.create({
     color: Colors.primary,
     fontWeight: "bold",
     fontSize: 16,
+  },
+  tochableClear: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
   },
 });
 

@@ -9,8 +9,8 @@ import TextToLocation from "@/Components/TextToLocation";
 const LocationSearch = () => {
   const navigation = useNavigation();
   const [location, setLocation] = useState({
-    latitude: 35.68877029418945,
-    longitude: 51.41503143310547,
+    latitude: 51.50642013549805,
+    longitude: -0.12721000611782074,
     latitudeDelta: 0.02,
     longitudeDelta: 0.02,
   });
