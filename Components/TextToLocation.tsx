@@ -7,8 +7,7 @@ import Colors from "@/constants/Colors";
 const TextToLocation = ({ updateLocation, location }: any) => {
   const [search, setSearch] = useState("");
   const { data, loading, error } = useMapApi(search);
-  //   console.log("data :", data?.locations[0]?.referencePosition);
-  //   console.log(search);
+
   useEffect(() => {
     if (
       data?.locations[0]?.referencePosition &&
