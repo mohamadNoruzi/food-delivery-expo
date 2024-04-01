@@ -8,7 +8,7 @@ import {
   ListRenderItem,
   ScrollView,
 } from "react-native";
-import React, { useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import ParallaxScrollView from "@/Components/ParallaxScrollView";
 import Colors from "@/constants/Colors";
 import { restaurant } from "@/assets/data/restaurant";
@@ -17,6 +17,7 @@ import { Ionicons } from "@expo/vector-icons";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
+  withTiming,
 } from "react-native-reanimated";
 
 const Details = () => {
@@ -27,6 +28,9 @@ const Details = () => {
   const animatedStyles = useAnimatedStyle(() => ({
     opacity: opacity.value,
   }));
+
+  const scrollRef = useRef<ScrollView>(null);
+  const itemsRef = useRef<TouchableOpacity[]>([]);
 
   const Data = restaurant.food.map((item, index) => ({
     title: item.category,
@@ -62,6 +66,15 @@ const Details = () => {
 
   const selectCategory = (index: number) => setActiveIndex(index);
 
+  const onScroll = (event: any) => {
+    const y = event.nativeEvent.contentOffset.y;
+    if (y > 350) {
+      opacity.value = withTiming(1);
+    } else {
+      opacity.value = withTiming(0);
+    }
+  };
+
   const renderItem: ListRenderItem<any> = ({ item, index }) => (
     <Link href={"/"} asChild>
       <TouchableOpacity style={styles.item}>
@@ -78,6 +91,7 @@ const Details = () => {
   return (
     <>
       <ParallaxScrollView
+        scrollEvent={onScroll}
         backgroundColor={"#fff"}
         style={{ flex: 1 }}
         parallaxHeaderHeight={250}
