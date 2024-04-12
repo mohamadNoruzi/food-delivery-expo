@@ -191,7 +191,9 @@ const Details = () => {
               <TouchableOpacity style={styles.fullButton}>
                 <Text style={styles.basket}>{items}</Text>
                 <Text style={styles.footerText}>View Basket</Text>
-                <Text style={styles.basketTotal}>Total: ${total}</Text>
+                <Text style={styles.basketTotal}>
+                  Total: ${total.toFixed(2)}
+                </Text>
               </TouchableOpacity>
             </Link>
           </SafeAreaView>
