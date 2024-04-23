@@ -7,6 +7,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import ConfettiCannon from "react-native-confetti-cannon";
 import { Link } from "expo-router";
 import GmailStyleSwipeableRow from "@/Components/SwiprableRow";
+import { FlashList } from "@shopify/flash-list";
 
 const Basket = () => {
   const { products, total, clearCart, reduceProduct } = useBasketStore();
@@ -49,9 +50,10 @@ const Basket = () => {
       )}
       {!order && (
         <>
-          <FlatList
+          <FlashList
             data={products}
             ListHeaderComponent={<Text style={styles.section}>Items</Text>}
+            estimatedItemSize={10}
             ItemSeparatorComponent={() => (
               <View style={{ height: 1, backgroundColor: Colors.gery }} />
             )}
