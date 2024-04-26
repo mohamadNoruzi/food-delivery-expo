@@ -86,6 +86,9 @@ const Details = () => {
           <Text style={styles.dish}>{item.name}</Text>
           <Text style={styles.dishText}>{item.info}</Text>
           <Text style={styles.dishText}>{item.price}</Text>
+          <TouchableOpacity style={styles.addCart}>
+            <Text>add cart</Text>
+          </TouchableOpacity>
         </View>
         <Image source={item.img} style={styles.dishImage} />
       </TouchableOpacity>
@@ -251,6 +254,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: "#fff",
     padding: 16,
+  },
+  addCart: {
+    backgroundColor: "red",
   },
   dishImage: {
     height: 80,

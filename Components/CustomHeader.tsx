@@ -14,6 +14,7 @@ import { Link } from "expo-router";
 import Colors from "@/constants/Colors";
 import BottomSheet from "./BottomSheet";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import useBasketStore from "@/basketStore";
 
 const SearchBar = () => (
   <View style={styles.searchContainer}>
@@ -40,6 +41,7 @@ const SearchBar = () => (
 );
 
 const CustomHeader = () => {
+  const { items } = useBasketStore();
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const openModal = () => {
     bottomSheetRef.current?.present();
@@ -63,9 +65,31 @@ const CustomHeader = () => {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.profileButton}>
-          <Ionicons name="person-outline" size={20} color={Colors.primary} />
-        </TouchableOpacity>
+        <View style={styles.profileButton}>
+          <Link href="/basket" asChild>
+            <TouchableOpacity>
+              <Ionicons
+                name="cart-outline"
+                size={20}
+                color={Colors.primary}
+                style={styles.profileButtonIcons}
+              />
+              {items > 0 && (
+                <View style={styles.CartBadge}>
+                  <Text>{items}</Text>
+                </View>
+              )}
+            </TouchableOpacity>
+          </Link>
+          <TouchableOpacity>
+            <Ionicons
+              name="person-outline"
+              size={20}
+              color={Colors.primary}
+              style={styles.profileButtonIcons}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
       <SearchBar />
     </SafeAreaView>
@@ -94,8 +118,19 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   profileButton: {
+    flexDirection: "row",
+    gap: 20,
+  },
+  profileButtonIcons: {
     backgroundColor: Colors.lightGrey,
     padding: 10,
+    borderRadius: 50,
+  },
+  CartBadge: {
+    position: "absolute",
+    left: 22,
+    backgroundColor: "red",
+    paddingHorizontal: 5,
     borderRadius: 50,
   },
   locationName: {
