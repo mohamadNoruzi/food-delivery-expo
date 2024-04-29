@@ -25,6 +25,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 const Details = () => {
   const navigation = useNavigation();
   const [activeIndex, setActiveIndex] = useState(0);
+  const { items, total, addProduct } = useBasketStore();
 
   const opacity = useSharedValue(0);
   const animatedStyles = useAnimatedStyle(() => ({
@@ -39,8 +40,6 @@ const Details = () => {
     data: item.meals,
     index,
   }));
-
-  const { items, total } = useBasketStore();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -85,9 +84,14 @@ const Details = () => {
         <View style={{ flex: 1 }}>
           <Text style={styles.dish}>{item.name}</Text>
           <Text style={styles.dishText}>{item.info}</Text>
-          <Text style={styles.dishText}>{item.price}</Text>
-          <TouchableOpacity style={styles.addCart}>
-            <Text>add cart</Text>
+          <Text style={styles.dishText}>${item.price}</Text>
+          <TouchableOpacity
+            style={styles.addCart}
+            onPress={() => addProduct(item)}
+          >
+            <View>
+              <Text style={{ color: "#fff" }}>Add to cart</Text>
+            </View>
           </TouchableOpacity>
         </View>
         <Image source={item.img} style={styles.dishImage} />
@@ -256,7 +260,13 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   addCart: {
-    backgroundColor: "red",
+    backgroundColor: Colors.primary,
+    width: 90,
+    height: 30,
+    borderRadius: 5,
+
+    justifyContent: "center",
+    alignItems: "center",
   },
   dishImage: {
     height: 80,
