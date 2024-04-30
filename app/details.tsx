@@ -21,11 +21,13 @@ import Animated, {
 } from "react-native-reanimated";
 import useBasketStore from "@/basketStore";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 const Details = () => {
   const navigation = useNavigation();
   const [activeIndex, setActiveIndex] = useState(0);
-  const { items, total, addProduct } = useBasketStore();
+  const { items, total, addProduct, products, reduceProduct } =
+    useBasketStore();
 
   const opacity = useSharedValue(0);
   const animatedStyles = useAnimatedStyle(() => ({
@@ -78,6 +80,11 @@ const Details = () => {
     }
   };
 
+  const itemFinder = (item: any) => {
+    const response = products.filter((it) => it.id == item.id);
+    return response[0]?.quantity;
+  };
+
   const renderItem: ListRenderItem<any> = ({ item, index }) => (
     <Link href={{ pathname: "/(modal)/dish", params: { id: item.id } }} asChild>
       <TouchableOpacity style={styles.item}>
@@ -85,14 +92,40 @@ const Details = () => {
           <Text style={styles.dish}>{item.name}</Text>
           <Text style={styles.dishText}>{item.info}</Text>
           <Text style={styles.dishText}>${item.price}</Text>
-          <TouchableOpacity
-            style={styles.addCart}
-            onPress={() => addProduct(item)}
-          >
-            <View>
-              <Text style={{ color: "#fff" }}>Add to cart</Text>
-            </View>
-          </TouchableOpacity>
+          {itemFinder(item) ? (
+            <TouchableOpacity activeOpacity={1} style={styles.twoButton}>
+              <TouchableOpacity
+                onPress={() => addProduct(item)}
+                activeOpacity={0.7}
+              >
+                <Ionicons
+                  name="add-circle-outline"
+                  size={35}
+                  color={Colors.primary}
+                />
+              </TouchableOpacity>
+              <Text>{itemFinder(item)}</Text>
+              <TouchableOpacity
+                onPress={() => reduceProduct(item)}
+                activeOpacity={0.7}
+              >
+                <Ionicons
+                  name="remove-circle-outline"
+                  size={35}
+                  color={Colors.primary}
+                />
+              </TouchableOpacity>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              style={styles.addCart}
+              onPress={() => addProduct(item)}
+            >
+              <View>
+                <Text style={{ color: "#fff" }}>Add to cart</Text>
+              </View>
+            </TouchableOpacity>
+          )}
         </View>
         <Image source={item.img} style={styles.dishImage} />
       </TouchableOpacity>
@@ -261,12 +294,20 @@ const styles = StyleSheet.create({
   },
   addCart: {
     backgroundColor: Colors.primary,
-    width: 90,
-    height: 30,
+    width: 100,
+    height: 40,
     borderRadius: 5,
 
     justifyContent: "center",
     alignItems: "center",
+  },
+  twoButton: {
+    height: 40,
+    width: 120,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+    paddingLeft: 4,
   },
   dishImage: {
     height: 80,
