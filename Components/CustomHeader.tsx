@@ -81,14 +81,16 @@ const CustomHeader = () => {
               )}
             </TouchableOpacity>
           </Link>
-          <TouchableOpacity>
-            <Ionicons
-              name="person-outline"
-              size={20}
-              color={Colors.primary}
-              style={styles.profileButtonIcons}
-            />
-          </TouchableOpacity>
+          <Link href="/profile" asChild>
+            <TouchableOpacity>
+              <Ionicons
+                name="person-outline"
+                size={20}
+                color={Colors.primary}
+                style={styles.profileButtonIcons}
+              />
+            </TouchableOpacity>
+          </Link>
         </View>
       </View>
       <SearchBar />
