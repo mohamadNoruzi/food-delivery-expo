@@ -43,7 +43,8 @@
     "react-native-web": "~0.19.6",
     "react-navigation": "^5.0.0",
     "zustand": "^4.5.2",
-    "@shopify/flash-list": "1.4.3"
+    "@shopify/flash-list": "1.4.3",
+    "expo-image-picker": "~14.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

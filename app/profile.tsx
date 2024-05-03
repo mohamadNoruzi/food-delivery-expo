@@ -1,13 +1,42 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { Button, StyleSheet, Text, View, Image } from "react-native";
+import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
+import * as ImagePicker from "expo-image-picker";
+import { Ionicons } from "@expo/vector-icons";
+import Colors from "@/constants/Colors";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const profile = () => {
+  const [image, setImage] = useState(String);
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+    });
+    console.log("result", result);
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
+
   return (
     <SafeAreaView edges={["bottom"]} style={styles.container}>
-      <View style={styles.profilePhoto}></View>
+      <View style={styles.profileSection}>
+        <View style={styles.profileLogo}>
+          {image ? (
+            <Image source={{ uri: image }} style={styles.image} />
+          ) : (
+            <Ionicons name="person-outline" size={150} color={Colors.primary} />
+          )}
+        </View>
+        <TouchableOpacity onPress={pickImage} style={styles.GalleryPiker}>
+          <Text style={styles.buttonText}>Add Profile Photo Form Gallary</Text>
+        </TouchableOpacity>
+      </View>
       <View style={styles.profileInformation}></View>
-      <View style={styles.validate}></View>
     </SafeAreaView>
   );
 };
@@ -19,16 +48,39 @@ const styles = StyleSheet.create({
     // backgroundColor: "red",
     flex: 1,
   },
-  profilePhoto: {
+  profileSection: {
     // backgroundColor: "red",
     flex: 3,
+    justifyContent: "space-around",
+    alignItems: "center",
   },
   profileInformation: {
     // backgroundColor: "green",
-    flex: 3,
+    flex: 4,
   },
-  validate: {
-    // backgroundColor: "yellow",
-    flex: 1,
+  image: {
+    width: 200,
+    height: 200,
+    // borderRadius: 100,
+  },
+  profileLogo: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: 200,
+    height: 200,
+    backgroundColor: "#fff",
+    borderRadius: 100,
+    overflow: "hidden",
+  },
+  GalleryPiker: {
+    backgroundColor: Colors.primary,
+    padding: 8,
+    borderRadius: 6,
+    alignItems: "center",
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 14,
   },
 });
