@@ -15,6 +15,7 @@ import Colors from "@/constants/Colors";
 import BottomSheet from "./BottomSheet";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import useBasketStore from "@/basketStore";
+import useProfileStore from "@/profilePhotoStore";
 
 const SearchBar = () => (
   <View style={styles.searchContainer}>
@@ -46,6 +47,8 @@ const CustomHeader = () => {
   const openModal = () => {
     bottomSheetRef.current?.present();
   };
+  const { imgURI } = useProfileStore();
+
   return (
     <SafeAreaView style={styles.SafeArea}>
       <BottomSheet ref={bottomSheetRef} />
@@ -82,13 +85,20 @@ const CustomHeader = () => {
             </TouchableOpacity>
           </Link>
           <Link href="/profile" asChild>
-            <TouchableOpacity>
-              <Ionicons
-                name="person-outline"
-                size={20}
-                color={Colors.primary}
-                style={styles.profileButtonIcons}
-              />
+            <TouchableOpacity style={styles.tochableImageProfile}>
+              {imgURI ? (
+                <Image
+                  source={{ uri: imgURI }}
+                  style={styles.profileButtonImage}
+                />
+              ) : (
+                <Ionicons
+                  name="person-outline"
+                  size={20}
+                  color={Colors.primary}
+                  style={styles.profileButtonIcons}
+                />
+              )}
             </TouchableOpacity>
           </Link>
         </View>
@@ -127,6 +137,18 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.lightGrey,
     padding: 10,
     borderRadius: 50,
+  },
+  tochableImageProfile: {
+    borderRadius: 20,
+    width: 40,
+    height: 40,
+    overflow: "hidden",
+    borderColor: Colors.primary,
+    borderWidth: 1,
+  },
+  profileButtonImage: {
+    width: 40,
+    height: 40,
   },
   CartBadge: {
     position: "absolute",

@@ -8,7 +8,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import useProfileStore from "@/profilePhotoStore";
 
 const profile = () => {
-  const { addPhoto, imgURI } = useProfileStore();
+  const { addPhoto, removePhoto, imgURI } = useProfileStore();
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -22,8 +22,6 @@ const profile = () => {
     }
   };
 
-  console.log("imgURI:", imgURI);
-
   return (
     <SafeAreaView edges={["bottom"]} style={styles.container}>
       <View style={styles.profileSection}>
@@ -34,6 +32,13 @@ const profile = () => {
             <Ionicons name="person-outline" size={150} color={Colors.primary} />
           )}
         </View>
+        <TouchableOpacity
+          onPress={() => {
+            removePhoto();
+          }}
+        >
+          <Ionicons name="trash-outline" size={30} color={Colors.primary} />
+        </TouchableOpacity>
         <TouchableOpacity onPress={pickImage} style={styles.GalleryPiker}>
           <Text style={styles.buttonText}>Add Profile Photo Form Gallary</Text>
         </TouchableOpacity>
@@ -63,7 +68,6 @@ const styles = StyleSheet.create({
   image: {
     width: 200,
     height: 200,
-    // borderRadius: 100,
   },
   profileLogo: {
     justifyContent: "center",
