@@ -5,9 +5,10 @@ import * as ImagePicker from "expo-image-picker";
 import { Ionicons } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import useProfileStore from "@/profilePhotoStore";
 
 const profile = () => {
-  const [image, setImage] = useState(String);
+  const { addPhoto, imgURI } = useProfileStore();
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -15,19 +16,20 @@ const profile = () => {
       allowsEditing: true,
       aspect: [1, 1],
     });
-    console.log("result", result);
 
     if (!result.canceled) {
-      setImage(result.assets[0].uri);
+      addPhoto(result.assets[0].uri);
     }
   };
+
+  console.log("imgURI:", imgURI);
 
   return (
     <SafeAreaView edges={["bottom"]} style={styles.container}>
       <View style={styles.profileSection}>
         <View style={styles.profileLogo}>
-          {image ? (
-            <Image source={{ uri: image }} style={styles.image} />
+          {imgURI ? (
+            <Image source={{ uri: imgURI }} style={styles.image} />
           ) : (
             <Ionicons name="person-outline" size={150} color={Colors.primary} />
           )}
