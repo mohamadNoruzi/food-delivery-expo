@@ -44,7 +44,10 @@
     "react-navigation": "^5.0.0",
     "zustand": "^4.5.2",
     "@shopify/flash-list": "1.4.3",
-    "expo-image-picker": "~14.3.2"
+    "expo-image-picker": "~14.3.2",
+    "expo-camera": "~13.4.4",
+    "expo-sharing": "~11.5.0",
+    "expo-media-library": "~15.4.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
