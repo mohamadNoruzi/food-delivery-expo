@@ -6,6 +6,7 @@ import { Ionicons } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import useProfileStore from "@/profilePhotoStore";
+import CameraBasic from "@/Components/CameraBasic";
 
 const profile = () => {
   const { addPhoto, removePhoto, imgURI } = useProfileStore();
@@ -42,6 +43,7 @@ const profile = () => {
         <TouchableOpacity onPress={pickImage} style={styles.GalleryPiker}>
           <Text style={styles.buttonText}>Add Profile Photo Form Gallary</Text>
         </TouchableOpacity>
+        <CameraBasic />
       </View>
       <View style={styles.profileInformation}></View>
     </SafeAreaView>
