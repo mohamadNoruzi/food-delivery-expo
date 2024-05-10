@@ -6,7 +6,7 @@ import { Ionicons } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import useProfileStore from "@/profilePhotoStore";
-import CameraBasic from "@/Components/CameraBasic";
+import { Link } from "expo-router";
 
 const profile = () => {
   const { addPhoto, removePhoto, imgURI } = useProfileStore();
@@ -43,7 +43,9 @@ const profile = () => {
         <TouchableOpacity onPress={pickImage} style={styles.GalleryPiker}>
           <Text style={styles.buttonText}>Add Profile Photo Form Gallary</Text>
         </TouchableOpacity>
-        <CameraBasic />
+        <Link href={"/CameraBasic"} style={styles.GalleryPiker}>
+          <Text style={styles.buttonText}>Take Picture Now</Text>
+        </Link>
       </View>
       <View style={styles.profileInformation}></View>
     </SafeAreaView>
