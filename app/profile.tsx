@@ -61,9 +61,10 @@ const styles = StyleSheet.create({
   },
   profileSection: {
     // backgroundColor: "red",
-    flex: 3,
+    flex: 5,
     justifyContent: "space-around",
     alignItems: "center",
+    paddingTop: 50,
   },
   profileInformation: {
     // backgroundColor: "green",
