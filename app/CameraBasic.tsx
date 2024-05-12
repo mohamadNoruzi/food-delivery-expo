@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   View,
   Dimensions,
+  Image,
 } from "react-native";
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Camera, CameraType } from "expo-camera";
@@ -21,6 +22,7 @@ const CameraBasic = () => {
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = Camera.useCameraPermissions();
   const { addPhoto } = useProfileStore();
+  const [preview, setPreview] = useState(String);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -41,6 +43,30 @@ const CameraBasic = () => {
     });
   }, []);
 
+  function toggleCameraType() {
+    setType((current) =>
+      current === CameraType.back ? CameraType.front : CameraType.back
+    );
+  }
+
+  const takePicture = async () => {
+    if (cameraRef.current) {
+      let option = {
+        quality: 1,
+        base64: true,
+        exif: false,
+      };
+      let newPhoto = await cameraRef.current.takePictureAsync(option);
+      setPreview(newPhoto.uri);
+    }
+  };
+
+  const confirmPreview = () => {
+    addPhoto(preview);
+    setPreview("");
+    navigation.goBack();
+  };
+
   if (!permission) {
     // Camera permissions are still loading
     return <View />;
@@ -58,28 +84,25 @@ const CameraBasic = () => {
     );
   }
 
-  function toggleCameraType() {
-    setType((current) =>
-      current === CameraType.back ? CameraType.front : CameraType.back
+  if (preview) {
+    return (
+      <View style={{ flex: 1, backgroundColor: "black" }}>
+        <Image source={{ uri: preview }} style={styles.Image} />
+        <View style={{ flex: 1 }}>
+          <TouchableOpacity
+            style={styles.buttonPreview}
+            onPress={confirmPreview}
+          >
+            <Text style={styles.text}>It's Fine👌</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     );
   }
 
-  const takePicture = async () => {
-    if (cameraRef.current) {
-      let option = {
-        quality: 1,
-        base64: true,
-        exif: false,
-      };
-      let newPhoto = await cameraRef.current.takePictureAsync(option);
-      console.log(newPhoto);
-      addPhoto(newPhoto.uri);
-    }
-  };
-
   return (
     <View style={styles.container}>
-      <Camera style={styles.camera} type={type} ref={cameraRef}></Camera>
+      <Camera style={styles.camera} type={type} ref={cameraRef} />
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
           <Text style={styles.text}>Flip Camera</Text>
@@ -106,6 +129,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   camera: {
+    marginTop: 30,
     height: (4 * Dimensions.get("window").width) / 3,
     width: Dimensions.get("window").width,
   },
@@ -130,6 +154,18 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     justifyContent: "center",
     alignItems: "center",
+  },
+  Image: {
+    flex: 10,
+    height: "100%",
+    width: "100%",
+    resizeMode: "contain",
+  },
+  buttonPreview: {
+    alignSelf: "center",
+    backgroundColor: Colors.primary,
+    padding: 10,
+    borderRadius: 15,
   },
 });
 
