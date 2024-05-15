@@ -21,7 +21,6 @@ import Animated, {
 } from "react-native-reanimated";
 import useBasketStore from "@/basketStore";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 const Details = () => {
   const navigation = useNavigation();
@@ -30,6 +29,7 @@ const Details = () => {
     useBasketStore();
 
   const opacity = useSharedValue(0);
+  console.log("opacity", opacity.value);
   const animatedStyles = useAnimatedStyle(() => ({
     opacity: opacity.value,
   }));
@@ -252,6 +252,7 @@ const styles = StyleSheet.create({
     marginLeft: 70,
     height: 100,
     justifyContent: "flex-end",
+    paddingBottom: 6,
   },
   roundBatton: {
     width: 40,
