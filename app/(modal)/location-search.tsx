@@ -4,11 +4,11 @@ import Colors from "@/constants/Colors";
 import { useNavigation } from "expo-router";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import TextToLocation from "@/Components/TextToLocation";
-import Mapbox, { MapView } from "@rnmapbox/maps";
+// import Mapbox, { MapView } from "@rnmapbox/maps";
 
-Mapbox.setAccessToken(
-  "pk.eyJ1IjoibW9oYW1tYWRub3Jvenk3NiIsImEiOiJjbHdhdHI5ZHcwZG5uMnFsZGpkd3Q5YnM0In0.-h5Y2tt3mwdjW2KjgrA61g"
-);
+// Mapbox.setAccessToken(
+//   "pk.eyJ1IjoibW9oYW1tYWRub3Jvenk3NiIsImEiOiJjbHdhdHI5ZHcwZG5uMnFsZGpkd3Q5YnM0In0.-h5Y2tt3mwdjW2KjgrA61g"
+// );
 
 const LocationSearch = () => {
   const navigation = useNavigation();
@@ -30,7 +30,6 @@ const LocationSearch = () => {
     setLocation(newLocation);
   };
 
-  console.log("newloc", location);
   return (
     <View style={{ flex: 1 }}>
       <TextToLocation updateLocation={updateLocation} location={location} />
@@ -57,7 +56,7 @@ const LocationSearch = () => {
         }}
       /> */}
       {/* <MapView showsUserLocation={true} style={styles.map} region={location} /> */}
-      <Mapbox.MapView style={styles.map} />
+      {/* <Mapbox.MapView style={styles.map} /> */}
       <View style={styles.absoluteBox}>
         <TouchableOpacity
           style={styles.button}

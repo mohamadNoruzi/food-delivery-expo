@@ -29,7 +29,6 @@ const Details = () => {
     useBasketStore();
 
   const opacity = useSharedValue(0);
-  console.log("opacity", opacity.value);
   const animatedStyles = useAnimatedStyle(() => ({
     opacity: opacity.value,
   }));
