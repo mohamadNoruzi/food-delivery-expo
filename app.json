@@ -39,8 +39,14 @@
       [
         "@rnmapbox/maps",
         {
-          "RNMapboxMapsDownloadToken": "sk.eyJ1IjoibW9oYW1tYWRub3Jvenk3NiIsImEiOiJjbHdhdnJhaHgwaHQwMnFvM3UxeTE1cTBjIn0.fmCp7Wnt2yT6gaceGuk3fg",
-          "RNMapboxMapsImpl": "mapbox"
+          "RNMapboxMapsDownloadToken": "sk.eyJ1IjoibW9oYW1tYWRub3Jvenk3NiIsImEiOiJjbHk5dG93aWMwcmU4MmxwaHZvMGwxNjEwIn0.B058XNIFPiNPfmJBWZjhxw",
+          "RNMapboxMapsVersion": "11.0.0"
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Show current location on map."
         }
       ]
     ],

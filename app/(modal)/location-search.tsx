@@ -2,22 +2,26 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import Colors from "@/constants/Colors";
 import { useNavigation } from "expo-router";
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+// import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import TextToLocation from "@/Components/TextToLocation";
-// import Mapbox, { MapView } from "@rnmapbox/maps";
+import Mapbox, {
+  Camera,
+  LocationPuck,
+  MapView,
+  UserTrackingMode,
+} from "@rnmapbox/maps";
 
-// Mapbox.setAccessToken(
-//   "pk.eyJ1IjoibW9oYW1tYWRub3Jvenk3NiIsImEiOiJjbHdhdHI5ZHcwZG5uMnFsZGpkd3Q5YnM0In0.-h5Y2tt3mwdjW2KjgrA61g"
-// );
+Mapbox.setAccessToken(process.env.EXPO_PUBLIC_MAPBOX_PK || "");
 
 const LocationSearch = () => {
   const navigation = useNavigation();
   const [location, setLocation] = useState({
-    latitude: 51.50642013549805,
-    longitude: -0.12721000611782074,
+    latitude: 35.68877029418945,
+    longitude: 51.41503143310547,
     latitudeDelta: 0.02,
     longitudeDelta: 0.02,
   });
+  console.log("location", location);
 
   const updateLocation = (
     newLocation: React.SetStateAction<{
@@ -56,7 +60,21 @@ const LocationSearch = () => {
         }}
       /> */}
       {/* <MapView showsUserLocation={true} style={styles.map} region={location} /> */}
-      {/* <Mapbox.MapView style={styles.map} /> */}
+      <MapView
+        style={styles.map}
+        styleURL="mapbox://styles/mapbox/outdoors-v12"
+      >
+        <Camera
+          // followUserLocation
+          // followZoomLevel={10}
+          zoomLevel={10}
+          centerCoordinate={[location.longitude, location.latitude]}
+          followUserLocation={false}
+          followUserMode={UserTrackingMode.Follow}
+          followZoomLevel={14}
+        />
+        <LocationPuck />
+      </MapView>
       <View style={styles.absoluteBox}>
         <TouchableOpacity
           style={styles.button}
@@ -77,7 +95,7 @@ const styles = StyleSheet.create({
   },
   absoluteBox: {
     position: "absolute",
-    bottom: 20,
+    bottom: 15,
     width: "100%",
   },
   button: {

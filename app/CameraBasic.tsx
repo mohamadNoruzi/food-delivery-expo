@@ -7,10 +7,14 @@ import {
   Dimensions,
   Image,
 } from "react-native";
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { Camera, CameraType } from "expo-camera";
+import React, { useLayoutEffect, useRef, useState } from "react";
+import {
+  CameraView,
+  useCameraPermissions,
+  CameraCapturedPicture,
+  CameraType,
+} from "expo-camera";
 import { shareAsync } from "expo-sharing";
-import * as MediaLibrary from "expo-media-library";
 import useProfileStore from "@/profilePhotoStore";
 import { useNavigation } from "expo-router";
 import Colors from "@/constants/Colors";
@@ -18,9 +22,9 @@ import { Ionicons } from "@expo/vector-icons";
 
 const CameraBasic = () => {
   const navigation = useNavigation();
-  const cameraRef = useRef<Camera | null>(null);
-  const [type, setType] = useState(CameraType.back);
-  const [permission, requestPermission] = Camera.useCameraPermissions();
+  const cameraRef = useRef<CameraCapturedPicture | null | any>(null);
+  const [type, setType] = useState<string>("back");
+  const [permission, requestPermission] = useCameraPermissions();
   const { addPhoto } = useProfileStore();
   const [preview, setPreview] = useState(String);
 
@@ -44,9 +48,7 @@ const CameraBasic = () => {
   }, []);
 
   function toggleCameraType() {
-    setType((current) =>
-      current === CameraType.back ? CameraType.front : CameraType.back
-    );
+    setType((current: any) => (current === "back" ? "front" : "back"));
   }
 
   const takePicture = async () => {
@@ -102,7 +104,7 @@ const CameraBasic = () => {
 
   return (
     <View style={styles.container}>
-      <Camera style={styles.camera} type={type} ref={cameraRef} />
+      <CameraView style={styles.camera} facing={type} ref={cameraRef} />
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
           <Text style={styles.text}>Flip Camera</Text>

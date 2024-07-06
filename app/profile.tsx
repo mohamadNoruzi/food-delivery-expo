@@ -7,6 +7,7 @@ import Colors from "@/constants/Colors";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import useProfileStore from "@/profilePhotoStore";
 import { Link } from "expo-router";
+// import * as FileSystem from "expo-file-system";
 
 const profile = () => {
   const { addPhoto, removePhoto, imgURI } = useProfileStore();
@@ -15,9 +16,14 @@ const profile = () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      aspect: [1, 1],
+      // aspect: [1, 1],
+      // quality: 0.2,
     });
 
+    // if (!result.canceled) {
+    //   const fileInfo = await FileSystem.getInfoAsync(result.assets[0].uri);
+    //   console.log("result", fileInfo.size);
+    // }
     if (!result.canceled) {
       addPhoto(result.assets[0].uri);
     }

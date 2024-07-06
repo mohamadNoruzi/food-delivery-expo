@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { StyleSheet, TextInput, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
 import useMapApi from "@/hook/useMapHook";
@@ -29,7 +29,7 @@ const TextToLocation = ({ updateLocation, location }: any) => {
         <View style={styles.searchField}>
           <Ionicons
             style={styles.searchIcon}
-            name="ios-search"
+            name="search-outline"
             size={20}
             color={Colors.medium}
           />

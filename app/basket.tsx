@@ -1,8 +1,14 @@
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+} from "react-native";
 import React, { useState } from "react";
 import useBasketStore from "@/basketStore";
 import Colors from "@/constants/Colors";
-import { TouchableOpacity } from "react-native-gesture-handler";
+// import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ConfettiCannon from "react-native-confetti-cannon";
 import { Link } from "expo-router";

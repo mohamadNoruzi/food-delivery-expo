@@ -23,7 +23,7 @@ const SearchBar = () => (
       <View style={styles.searchField}>
         <Ionicons
           style={styles.searchIcon}
-          name="ios-search"
+          name="search-outline"
           size={20}
           color={Colors.medium}
         />
