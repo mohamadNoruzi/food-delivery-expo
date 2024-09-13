@@ -1,5 +1,6 @@
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { Stack, useNavigation } from "expo-router";
+import { useNavigation } from "expo-router";
+import { Stack } from "expo-router/stack";
 import CustomHeader from "@/Components/CustomHeader";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";

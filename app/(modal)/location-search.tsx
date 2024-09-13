@@ -12,6 +12,7 @@ import Mapbox, {
 } from "@rnmapbox/maps";
 
 Mapbox.setAccessToken(process.env.EXPO_PUBLIC_MAPBOX_PK || "");
+console.log(process.env.EXPO_PUBLIC_MAPBOX_PK);
 
 const LocationSearch = () => {
   const navigation = useNavigation();
@@ -37,33 +38,7 @@ const LocationSearch = () => {
   return (
     <View style={{ flex: 1 }}>
       <TextToLocation updateLocation={updateLocation} location={location} />
-      {/* <GooglePlacesAutocomplete
-        placeholder="Search"
-        styles={{
-          container: {
-            flex: 1,
-          },
-          textInput: {
-            fontSize: 18,
-          },
-        }}
-        onPress={(data, details = null) => {
-          // 'details' is provided when fetchDetails = true
-          console.log(data, details);
-        }}
-        onFail={(error) => console.log("error" + error)}
-        listViewDisplayed={true}
-        fetchDetails
-        query={{
-          key: process.env.EXPO_PUBLIC_GOOGLE_API_KEY,
-          language: "en",
-        }}
-      /> */}
-      {/* <MapView showsUserLocation={true} style={styles.map} region={location} /> */}
-      <MapView
-        style={styles.map}
-        styleURL="mapbox://styles/mapbox/outdoors-v12"
-      >
+      <MapView style={styles.map} styleURL={"mapbox://styles/mapbox/standard"}>
         <Camera
           // followUserLocation
           // followZoomLevel={10}
